@@ -1,0 +1,6 @@
+.DS_Store
+.vscode
+npm-debug.*
+node_modules/
+dist
+package-lock.json
