@@ -8,7 +8,7 @@ const Header = () => {
       <button className="button create-event-btn">
         <i className="create-event-btn__icon">
           <svg
-            class="create-event-btn__icon-svg"
+            className="create-event-btn__icon-svg"
             width="36"
             height="36"
             viewBox="0 0 36 36"

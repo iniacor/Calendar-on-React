@@ -1,4 +1,5 @@
 import React from 'react';
+import Timeslot from './Timeslot';
 
 import './sidebar.scss';
 
@@ -10,9 +11,7 @@ const Sidebar = (props) => {
   return (
     <div className="calendar__time-scale">
       {hours.map((hour) => (
-        <div className="time-slot">
-          <span className="time-slot__time">{`${hour}:00`}</span>
-        </div>
+        <Timeslot key={hour + 1} hour={hour} />
       ))}
     </div>
   );

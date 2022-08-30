@@ -1,19 +1,22 @@
 import React from 'react';
+import CalendarDayLable from './CalendarDayLable';
 
 import { days } from '../../utils/dateUtils.js';
 
 const Navigation = ({ weekDates }) => {
+  const currentDate = new Date().getDate();
+  const currentDay = days[new Date().getDay()];
+
   return (
     <header className="calendar__header">
       {weekDates.map((dayDate) => (
-        <div className="calendar__day-label day-label">
-          <span className="day-label__day-name day-label__day-name_current">
-            {days[dayDate.getDay()]}
-          </span>
-          <span className="day-label__day-number day-label__day-number_current">
-            {dayDate.getDate()}
-          </span>
-        </div>
+        <CalendarDayLable
+          key={Math.random().toString(16)}
+          days={days}
+          currentDate={currentDate}
+          currentDay={currentDay}
+          dayDate={dayDate}
+        />
       ))}
     </header>
   );
