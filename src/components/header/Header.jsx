@@ -8,6 +8,7 @@ const Header = ({
   nextWeekHandler,
   toCurrentWeekHandler,
   weekStartDate,
+  createEventHandler,
 }) => {
   const currentFullMonth = moment(weekStartDate).format('MMMM');
   const currentMonthEnd = moment(weekStartDate).format('MMM');
@@ -16,7 +17,7 @@ const Header = ({
 
   return (
     <header className="header">
-      <button className="button create-event-btn">
+      <button className="button create-event-btn" onClick={createEventHandler}>
         <i className="create-event-btn__icon">
           <svg
             className="create-event-btn__icon-svg"

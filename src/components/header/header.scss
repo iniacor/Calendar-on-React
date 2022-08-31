@@ -44,7 +44,7 @@
 
   &__nav-icon {
     font-size: 16px;
-    margin-left: 20px;
+    margin-left: 37px;
     transition: transform 0.3s;
     &:hover {
       transform: scale(1.1);
@@ -52,6 +52,7 @@
   }
 
   &__displayed-month {
-    margin-left: 10px;
+    margin-left: 40px;
+    font-size: 18px;
   }
 }

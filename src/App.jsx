@@ -11,8 +11,17 @@ const App = () => {
 
   const [weekStartDate, setWeekStartDate] = useState(new Date());
 
+  const [modalStatus, setModalStatus] = useState(false);
+
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
   const currentDate = new Date(weekStartDate).getDate();
+
+  const createEventHandler = () => {
+    setModalStatus(true);
+  };
+  const closeModalHandler = () => {
+    setModalStatus(false);
+  };
 
   const prevWeekHandler = () => {
     setWeekStartDate(
@@ -36,8 +45,13 @@ const App = () => {
         nextWeekHandler={nextWeekHandler}
         toCurrentWeekHandler={toCurrentWeekHandler}
         weekStartDate={weekStartDate}
+        createEventHandler={createEventHandler}
       />
-      <Calendar weekDates={weekDates} />
+      <Calendar
+        weekDates={weekDates}
+        modalStatus={modalStatus}
+        closeModalHandler={closeModalHandler}
+      />
     </>
   );
 };
