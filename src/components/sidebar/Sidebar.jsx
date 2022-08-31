@@ -3,7 +3,7 @@ import Timeslot from './Timeslot';
 
 import './sidebar.scss';
 
-const Sidebar = (props) => {
+const Sidebar = () => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -11,7 +11,7 @@ const Sidebar = (props) => {
   return (
     <div className="calendar__time-scale">
       {hours.map((hour) => (
-        <Timeslot key={hour + 1} hour={hour} />
+        <Timeslot key={hour} hour={hour} />
       ))}
     </div>
   );

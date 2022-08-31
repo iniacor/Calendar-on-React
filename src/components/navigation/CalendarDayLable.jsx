@@ -1,11 +1,13 @@
 import React from 'react';
+import { days } from '../../utils/dateUtils.js';
 
-const CalendarDayLable = ({ days, currentDate, currentDay, dayDate }) => {
+const CalendarDayLable = ({ dayDate }) => {
+  const currentDate = new Date().getDate();
   return (
     <div className="calendar__day-label day-label">
       <span
         className={
-          days[dayDate.getDay()] === currentDay
+          dayDate.getDate() === currentDate
             ? 'day-label__day-name day-label__day-name_current'
             : 'day-label__day-name'
         }
