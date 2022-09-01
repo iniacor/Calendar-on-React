@@ -1,23 +1,30 @@
 .event {
   position: absolute;
   width: 80%;
-  background-color: cornflowerblue;
+  background-color: #ee861e;
   z-index: 1;
   border-radius: 8px;
   padding: 8px;
   color: #fff;
+  overflow: hidden;
+  transition: all 0.3s;
 
   &__title {
+    display: inline-block;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 8px;
   }
-
   &:hover {
     font-weight: bold;
-    background-color: red;
+    background-color: #737bff;
+    transform: scale(1.1);
+    width: 130%;
+    padding-right: 30px;
+    z-index: 2;
+    box-shadow: 3px 4px 5px 1px rgb(25 25 255 / 75%);
   }
 }
 
