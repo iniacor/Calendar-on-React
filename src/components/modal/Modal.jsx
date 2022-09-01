@@ -6,7 +6,7 @@ const Modal = ({
   closeModalHandler,
   inputChangeHandler,
   eventInput,
-  submitEventHandler,
+  createEventHandler,
 }) => {
   const { title, description, date, startTime, endTime } = eventInput;
   return (
@@ -19,7 +19,13 @@ const Modal = ({
           >
             +
           </button>
-          <form className="event-form">
+          <form
+            className="event-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              createEventHandler(eventInput);
+            }}
+          >
             <input
               className="event-form__field"
               type="text"
@@ -59,11 +65,7 @@ const Modal = ({
               placeholder="Description"
               onChange={inputChangeHandler}
             ></textarea>
-            <button
-              type="submit"
-              className="event-form__submit-btn"
-              onSubmit={submitEventHandler}
-            >
+            <button type="submit" className="event-form__submit-btn">
               Create
             </button>
           </form>

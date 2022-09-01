@@ -14,30 +14,35 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
 
   const [eventInput, setEventInput] = useState({
     title: '',
-    dateFrom: new Date(2022, 8, 3, 10, 15),
-    dateTo: new Date(2022, 8, 3, 11, 0),
     date: moment(new Date()).format('YYYY-MM-DD'),
     description: '',
     startTime: moment().format('HH:mm'),
     endTime: moment().format('HH:mm'),
   });
 
-  const submitEventHandler = (e) => {
-    console.log(e);
-    debugger;
-    const { title } = eventInput;
+  const formatNewEvent = (eventInput) => {
+    const { title, date, startTime, endTime, description } = eventInput;
     const newEvent = {
       title,
+      description,
+      dateFrom: new Date(`${date} ${startTime}`),
+      dateTo: new Date(`${date} ${endTime}`),
+      id: Math.random().toString(16).substr(2, 9),
     };
-    console.log(newEvent);
-    const updatedEvents = events.concat(newEvent);
-    console.log(updatedEvents);
-    setEventsList({ eventsList: updatedEvents });
+    return newEvent;
   };
+  console.log();
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setEventInput({ ...eventInput, [name]: value });
+  };
+
+  const createEventHandler = (eventInput) => {
+    const newEvent = formatNewEvent(eventInput);
+    const updatesEvents = eventsList.concat(newEvent);
+    setEventsList(updatesEvents);
+    closeModalHandler();
   };
 
   return (
@@ -48,7 +53,7 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
           closeModalHandler={closeModalHandler}
           inputChangeHandler={inputChangeHandler}
           eventInput={eventInput}
-          submitEventHandler={submitEventHandler}
+          createEventHandler={createEventHandler}
         />
       )}
       <div className="calendar__body">
