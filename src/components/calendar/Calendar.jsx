@@ -17,8 +17,18 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
     date: moment(new Date()).format('YYYY-MM-DD'),
     description: '',
     startTime: moment().format('HH:mm'),
-    endTime: moment().format('HH:mm'),
+    endTime: moment().add(15, 'minutes').format('HH:mm'),
   });
+
+  const showDefaultEvent = () => {
+    setEventInput({
+      title: '',
+      date: moment(new Date()).format('YYYY-MM-DD'),
+      description: '',
+      startTime: moment().format('HH:mm'),
+      endTime: moment().add(15, 'minutes').format('HH:mm'),
+    });
+  };
 
   const formatNewEvent = (eventInput) => {
     const { title, date, startTime, endTime, description } = eventInput;
@@ -42,6 +52,7 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
     const newEvent = formatNewEvent(eventInput);
     const updatesEvents = eventsList.concat(newEvent);
     setEventsList(updatesEvents);
+    showDefaultEvent(eventInput);
     closeModalHandler();
   };
 
