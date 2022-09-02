@@ -29,6 +29,18 @@
 }
 
 .delete-event-btn {
-  cursor: pointer;
+  position: absolute;
+  right: 0;
+  transform: rotate(45deg) scale(2);
+  outline: none;
   border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  transition: color 0.3s;
+  &:hover {
+    color: red;
+  }
 }

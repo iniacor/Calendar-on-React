@@ -56,6 +56,11 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
     closeModalHandler();
   };
 
+  const deleteEventHandler = (id) => {
+    const updatesEvents = eventsList.filter((event) => event.id !== id);
+    setEventsList(updatesEvents);
+  };
+
   return (
     <section className="calendar">
       <Navigation weekDates={weekDates} />
@@ -70,7 +75,11 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
       <div className="calendar__body">
         <div className="calendar__week-container">
           <Sidebar />
-          <Week weekDates={weekDates} eventsList={eventsList} />
+          <Week
+            weekDates={weekDates}
+            eventsList={eventsList}
+            deleteEventHandler={deleteEventHandler}
+          />
         </div>
       </div>
     </section>
