@@ -1,3 +1,5 @@
+const baseUrl = 'https://62da9225e56f6d82a7651b64.mockapi.io/api/v1/events';
+
 const events = [
   {
     id: 1,
