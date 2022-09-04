@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import Navigation from './../navigation/Navigation';
 import Week from '../week/Week';
 import Sidebar from '../sidebar/Sidebar';
-import events from '../../gateway/events';
+import {
+  formatNewEvent,
+  postEvent,
+  getEvent,
+  fetchDelete,
+} from '../../gateway/gateway';
 import Modal from '../modal/Modal';
 
 import './calendar.scss';
 
 const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
-  const [eventsList, setEventsList] = useState(events);
+  const [eventsList, setEventsList] = useState([]);
 
   const [eventInput, setEventInput] = useState({
     title: '',
@@ -19,6 +24,10 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
     startTime: moment().format('HH:mm'),
     endTime: moment().add(15, 'minutes').format('HH:mm'),
   });
+
+  useEffect(() => {
+    getEvent(setEventsList);
+  }, []);
 
   const showDefaultEvent = () => {
     setEventInput({
@@ -30,36 +39,20 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
     });
   };
 
-  const formatNewEvent = (eventInput) => {
-    const { title, date, startTime, endTime, description } = eventInput;
-    const newEvent = {
-      title,
-      description,
-      dateFrom: new Date(`${date} ${startTime}`),
-      dateTo: new Date(`${date} ${endTime}`),
-      id: Math.random().toString(16).substr(2, 9),
-    };
-    return newEvent;
-  };
-  console.log();
-
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setEventInput({ ...eventInput, [name]: value });
   };
 
-  const createEventHandler = (eventInput) => {
+  const createEvent = (eventInput) => {
     const newEvent = formatNewEvent(eventInput);
-    const updatesEvents = eventsList.concat(newEvent);
-    setEventsList(updatesEvents);
+    postEvent(newEvent).then(() => getEvent(setEventsList));
     showDefaultEvent(eventInput);
     closeModalHandler();
   };
 
-  const deleteEventHandler = (id) => {
-    const updatesEvents = eventsList.filter((event) => event.id !== id);
-    setEventsList(updatesEvents);
-  };
+  const deleteEvent = (id) =>
+    fetchDelete(id).then(() => getEvent(setEventsList));
 
   return (
     <section className="calendar">
@@ -69,7 +62,7 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
           closeModalHandler={closeModalHandler}
           inputChangeHandler={inputChangeHandler}
           eventInput={eventInput}
-          createEventHandler={createEventHandler}
+          createEventHandler={createEvent}
         />
       )}
       <div className="calendar__body">
@@ -78,7 +71,7 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
           <Week
             weekDates={weekDates}
             eventsList={eventsList}
-            deleteEventHandler={deleteEventHandler}
+            deleteEventHandler={deleteEvent}
           />
         </div>
       </div>
