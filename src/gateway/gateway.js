@@ -49,16 +49,18 @@ export const getEvent = (fn) =>
     });
 
 export const fetchDelete = (id) => {
-  fetch(`${baseUrl}/${id}`, {
+  return fetch(`${baseUrl}/${id}`, {
     method: 'DELETE',
   })
     .then((response) => {
-      console.log(response);
       if (!response.ok) {
-        throw new Error("Internal Server Error. Can't display events");
+        throw new Error(
+          "Internal Server Error. Can't display events in fetchDelete"
+        );
       }
     })
     .catch((error) => {
       alert(error.message);
+      console.log(error.message);
     });
 };

@@ -3,7 +3,15 @@ import DeleteEventBtn from './DeleteEventBtn';
 
 import './event.scss';
 
-const Event = ({ height, marginTop, title, time, id, deleteEventHandler }) => {
+const Event = ({
+  height,
+  marginTop,
+  title,
+  description,
+  time,
+  id,
+  deleteEventHandler,
+}) => {
   const eventStyle = {
     height,
     marginTop,
@@ -20,6 +28,7 @@ const Event = ({ height, marginTop, title, time, id, deleteEventHandler }) => {
       ) : null}
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
+      <div className="event__description">{description}</div>
     </div>
   );
 };

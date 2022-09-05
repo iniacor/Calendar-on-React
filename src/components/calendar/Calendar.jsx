@@ -51,8 +51,9 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
     closeModalHandler();
   };
 
-  const deleteEvent = (id) =>
+  const deleteEvent = (id) => {
     fetchDelete(id).then(() => getEvent(setEventsList));
+  };
 
   return (
     <section className="calendar">
