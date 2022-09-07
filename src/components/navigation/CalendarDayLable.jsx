@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { days } from '../../utils/dateUtils.js';
 
 const CalendarDayLable = ({ dayDate }) => {
@@ -32,6 +33,10 @@ const CalendarDayLable = ({ dayDate }) => {
       </span>
     </div>
   );
+};
+
+CalendarDayLable.propTypes = {
+  dayDate: PropTypes.object.isRequired,
 };
 
 export default CalendarDayLable;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import './header.scss';
@@ -59,6 +60,14 @@ const Header = ({
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  prevWeekHandler: PropTypes.func.isRequired,
+  nextWeekHandler: PropTypes.func.isRequired,
+  toCurrentWeekHandler: PropTypes.func.isRequired,
+  weekStartDate: PropTypes.object.isRequired,
+  createEventHandler: PropTypes.func.isRequired,
 };
 
 export default Header;

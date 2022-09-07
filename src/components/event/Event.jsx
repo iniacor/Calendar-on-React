@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import DeleteEventBtn from './DeleteEventBtn';
 
 import './event.scss';
@@ -31,6 +32,16 @@ const Event = ({
       <div className="event__description">{description}</div>
     </div>
   );
+};
+
+Event.propTypes = {
+  height: PropTypes.number.isRequired,
+  marginTop: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  time: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  deleteEventHandler: PropTypes.func.isRequired,
 };
 
 export default Event;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Navigation from './../navigation/Navigation';
@@ -78,6 +79,12 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
       </div>
     </section>
   );
+};
+
+Calendar.propTypes = {
+  weekDates: PropTypes.array.isRequired,
+  modalStatus: PropTypes.bool.isRequired,
+  closeModalHandler: PropTypes.func.isRequired,
 };
 
 export default Calendar;

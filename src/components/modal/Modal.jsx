@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import './modal.scss';
 
@@ -73,6 +74,13 @@ const Modal = ({
       </div>
     </div>
   );
+};
+
+Modal.propTypes = {
+  closeModalHandler: PropTypes.func.isRequired,
+  inputChangeHandler: PropTypes.func.isRequired,
+  eventInput: PropTypes.object.isRequired,
+  createEventHandler: PropTypes.func.isRequired,
 };
 
 export default Modal;
