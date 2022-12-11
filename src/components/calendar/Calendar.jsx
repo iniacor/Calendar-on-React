@@ -1,70 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-import Navigation from './../navigation/Navigation';
-import Week from '../week/Week';
-import Sidebar from '../sidebar/Sidebar';
-import {
-  formatNewEvent,
-  postEvent,
-  getEvent,
-  fetchDelete,
-} from '../../gateway/gateway';
-import Modal from '../modal/Modal';
+import Navigation from "./../navigation/Navigation";
+import Week from "../week/Week";
+import Sidebar from "../sidebar/Sidebar";
+import { fetchDelete, getEvents } from "../../gateway/gateway";
+import Modal from "../modal/Modal";
 
-import './calendar.scss';
+import "./calendar.scss";
 
-const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
+const Calendar = ({ weekDates, isModalShown, closeModalHandler }) => {
   const [eventsList, setEventsList] = useState([]);
 
-  const [eventInput, setEventInput] = useState({
-    title: '',
-    date: moment(new Date()).format('YYYY-MM-DD'),
-    description: '',
-    startTime: moment().format('HH:mm'),
-    endTime: moment().add(15, 'minutes').format('HH:mm'),
-  });
-
   useEffect(() => {
-    getEvent(setEventsList);
+    getEvents(setEventsList);
   }, []);
 
-  const showDefaultEvent = () => {
-    setEventInput({
-      title: '',
-      date: moment(new Date()).format('YYYY-MM-DD'),
-      description: '',
-      startTime: moment().format('HH:mm'),
-      endTime: moment().add(15, 'minutes').format('HH:mm'),
-    });
-  };
-
-  const inputChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setEventInput({ ...eventInput, [name]: value });
-  };
-
-  const createEvent = (eventInput) => {
-    const newEvent = formatNewEvent(eventInput);
-    postEvent(newEvent).then(() => getEvent(setEventsList));
-    showDefaultEvent(eventInput);
-    closeModalHandler();
-  };
-
   const deleteEvent = (id) => {
-    fetchDelete(id).then(() => getEvent(setEventsList));
+    fetchDelete(id).then(() => getEvents(setEventsList));
   };
 
   return (
     <section className="calendar">
       <Navigation weekDates={weekDates} />
-      {modalStatus && (
+      {isModalShown && (
         <Modal
           closeModalHandler={closeModalHandler}
-          inputChangeHandler={inputChangeHandler}
-          eventInput={eventInput}
-          createEventHandler={createEvent}
+          setEventsList={setEventsList}
         />
       )}
       <div className="calendar__body">
@@ -83,7 +45,7 @@ const Calendar = ({ weekDates, modalStatus, closeModalHandler }) => {
 
 Calendar.propTypes = {
   weekDates: PropTypes.array.isRequired,
-  modalStatus: PropTypes.bool.isRequired,
+  isModalShown: PropTypes.bool.isRequired,
   closeModalHandler: PropTypes.func.isRequired,
 };
 

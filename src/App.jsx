@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
-import Header from './components/header/Header.jsx';
-import Calendar from './components/calendar/Calendar.jsx';
+import React, { useState } from "react";
+import Header from "./components/header/Header.jsx";
+import Calendar from "./components/calendar/Calendar.jsx";
 
-import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
+import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
 
-import './common.scss';
+import "./common.scss";
 
 const App = () => {
   const DAYS_IN_WEEK = 7;
 
   const [weekStartDate, setWeekStartDate] = useState(new Date());
 
-  const [modalStatus, setModalStatus] = useState(false);
+  const [isModalShown, setIsModalShown] = useState(false);
 
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
   const currentDate = new Date(weekStartDate).getDate();
 
-  const createEventHandler = () => {
-    setModalStatus(true);
+  const openModalHandler = () => {
+    setIsModalShown(true);
   };
+
   const closeModalHandler = () => {
-    setModalStatus(false);
+    setIsModalShown(false);
   };
 
   const prevWeekHandler = () => {
@@ -45,11 +46,11 @@ const App = () => {
         nextWeekHandler={nextWeekHandler}
         toCurrentWeekHandler={toCurrentWeekHandler}
         weekStartDate={weekStartDate}
-        createEventHandler={createEventHandler}
+        openModalHandler={openModalHandler}
       />
       <Calendar
         weekDates={weekDates}
-        modalStatus={modalStatus}
+        isModalShown={isModalShown}
         closeModalHandler={closeModalHandler}
       />
     </>

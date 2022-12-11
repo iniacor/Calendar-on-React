@@ -1,24 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
+import React from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
 
-import './header.scss';
+import "./header.scss";
 
 const Header = ({
   prevWeekHandler,
   nextWeekHandler,
   toCurrentWeekHandler,
   weekStartDate,
-  createEventHandler,
+  openModalHandler,
 }) => {
-  const currentFullMonth = moment(weekStartDate).format('MMMM');
-  const currentMonthEnd = moment(weekStartDate).format('MMM');
-  const nextMonthStart = moment(weekStartDate).add(1, 'month').format('MMM');
+  const currentFullMonth = moment(weekStartDate).format("MMMM");
+  const currentMonthEnd = moment(weekStartDate).format("MMM");
+  const nextMonthStart = moment(weekStartDate).add(1, "month").format("MMM");
   const betweenMonth = `${currentMonthEnd} - ${nextMonthStart}`;
 
   return (
     <header className="header">
-      <button className="button create-event-btn" onClick={createEventHandler}>
+      <button className="button create-event-btn" onClick={openModalHandler}>
         <i className="create-event-btn__icon">
           <svg
             className="create-event-btn__icon-svg"
@@ -67,7 +67,7 @@ Header.propTypes = {
   nextWeekHandler: PropTypes.func.isRequired,
   toCurrentWeekHandler: PropTypes.func.isRequired,
   weekStartDate: PropTypes.object.isRequired,
-  createEventHandler: PropTypes.func.isRequired,
+  openModalHandler: PropTypes.func.isRequired,
 };
 
 export default Header;

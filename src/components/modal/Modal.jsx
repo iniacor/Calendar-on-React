@@ -1,14 +1,52 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
+import { postEvent, getEvents } from "../../gateway/gateway";
 
-import './modal.scss';
+import "./modal.scss";
 
-const Modal = ({
-  closeModalHandler,
-  inputChangeHandler,
-  eventInput,
-  createEventHandler,
-}) => {
+const Modal = ({ closeModalHandler, setEventsList }) => {
+  const [eventInput, setEventInput] = useState({
+    title: "",
+    date: moment(new Date()).format("YYYY-MM-DD"),
+    description: "",
+    startTime: moment().format("HH:mm"),
+    endTime: moment().add(15, "minutes").format("HH:mm"),
+  });
+
+  const showDefaultEvent = () => {
+    setEventInput({
+      title: "",
+      date: moment(new Date()).format("YYYY-MM-DD"),
+      description: "",
+      startTime: moment().format("HH:mm"),
+      endTime: moment().add(15, "minutes").format("HH:mm"),
+    });
+  };
+
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setEventInput({ ...eventInput, [name]: value });
+  };
+
+  const formatNewEvent = (eventInput) => {
+    const { title, date, startTime, endTime, description } = eventInput;
+    const newEvent = {
+      title,
+      description,
+      dateFrom: new Date(`${date} ${startTime}`),
+      dateTo: new Date(`${date} ${endTime}`),
+    };
+    return newEvent;
+  };
+
+  const createEvent = (eventInput) => {
+    const newEvent = formatNewEvent(eventInput);
+    postEvent(newEvent).then(() => getEvents(setEventsList));
+    showDefaultEvent(eventInput);
+    closeModalHandler();
+  };
+
   const { title, description, date, startTime, endTime } = eventInput;
   return (
     <div className="modal overlay">
@@ -24,7 +62,7 @@ const Modal = ({
             className="event-form"
             onSubmit={(e) => {
               e.preventDefault();
-              createEventHandler(eventInput);
+              createEvent(eventInput);
             }}
           >
             <input
@@ -78,9 +116,7 @@ const Modal = ({
 
 Modal.propTypes = {
   closeModalHandler: PropTypes.func.isRequired,
-  inputChangeHandler: PropTypes.func.isRequired,
-  eventInput: PropTypes.object.isRequired,
-  createEventHandler: PropTypes.func.isRequired,
+  setEventsList: PropTypes.func.isRequired,
 };
 
 export default Modal;
