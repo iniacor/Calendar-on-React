@@ -17,7 +17,16 @@ const Calendar = ({ weekDates, isModalShown, closeModalHandler }) => {
   }, []);
 
   const deleteEvent = (id) => {
-    fetchDelete(id).then(() => getEvents(setEventsList));
+    fetchDelete(id)
+      .then(() => getEvents(setEventsList))
+      .then((eventData) => {
+        const updEventsList = eventData.map((event) => ({
+          ...event,
+          dateFrom: new Date(event.dateFrom),
+          dateTo: new Date(event.dateTo),
+        }));
+        setEventsList(updEventsList);
+      });
   };
 
   return (

@@ -42,7 +42,16 @@ const Modal = ({ closeModalHandler, setEventsList }) => {
 
   const createEvent = (eventInput) => {
     const newEvent = formatNewEvent(eventInput);
-    postEvent(newEvent).then(() => getEvents(setEventsList));
+    postEvent(newEvent)
+      .then(() => getEvents())
+      .then((eventData) => {
+        const updEventsList = eventData.map((event) => ({
+          ...event,
+          dateFrom: new Date(event.dateFrom),
+          dateTo: new Date(event.dateTo),
+        }));
+        setEventsList(updEventsList);
+      });
     showDefaultEvent(eventInput);
     closeModalHandler();
   };

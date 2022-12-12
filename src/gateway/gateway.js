@@ -25,14 +25,6 @@ export const getEvents = (fn) =>
       }
       throw new Error("Internal Server Error. Can't display events");
     })
-    .then((eventData) => {
-      const updEventsList = eventData.map((event) => ({
-        ...event,
-        dateFrom: new Date(event.dateFrom),
-        dateTo: new Date(event.dateTo),
-      }));
-      fn(updEventsList);
-    })
     .catch((error) => {
       alert(error.message);
     });
