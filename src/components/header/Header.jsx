@@ -55,7 +55,7 @@ const Header = ({
           <i className="fas fa-chevron-right"></i>
         </button>
         <span className="navigation__displayed-month">
-          {weekStartDate.getDate() > 28 ? betweenMonth : currentFullMonth}
+          {weekStartDate.getDate() > 25 ? betweenMonth : currentFullMonth}
         </span>
       </div>
     </header>
