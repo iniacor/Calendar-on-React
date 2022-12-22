@@ -2,7 +2,7 @@
 Google Calendar project on React
 
 
-**[Site link](https://teal-nasturtium-b9d273.netlify.app/)**
+**[Site link](https://calendar-on-react.netlify.app/)**
 
 To build project in production mode use command: npm run build
 
